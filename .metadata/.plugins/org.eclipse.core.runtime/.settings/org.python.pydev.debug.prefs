@@ -1,0 +1,6 @@
+INTERACTIVE_CONSOLE_ENABLE_GUI_ON_STARTUP=osx
+eclipse.preferences.version=1
+pydevconsole_background_color=77,77,77
+pydevconsole_syserr_color=255,192,203
+pydevconsole_sysin_color=173,216,230
+pydevconsole_sysout_color=255,165,0

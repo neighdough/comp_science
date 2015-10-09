@@ -1,0 +1,136 @@
+"""
+*************************************************************************
+*Name: Nate Ron-Ferguson
+*Assignment: Assignment 1
+*Description:
+*Date: September 13, 2015
+*Comments:
+
+The assignment utilizes a Numpy and Matplotlib from the SciPy stack and 
+are not included in the Python Standard Library. Installation differs 
+based on the environment, but information can be found at
+http://www.scipy.org/install.html
+    
+*************************************************************************
+"""
+
+import numpy as np
+from matplotlib import pyplot as plt
+import random
+
+def bvp(a, b, n, *args):
+    """
+    generates first and second derivatives for specified function
+    for a boundary value problem using the finite difference approach
+    input:
+        a -> lower boundary limit, should be a double or floating point value
+        b -> upper boundary limit, should be a double  or floating point value
+        n -> the domain within which the solution will be generated,
+                should be a double or floating point value
+        args -> function used for the BVP
+    """
+    #converts python args parameter into lambda function
+    f = args[0]
+    """generate the number of steps by dividing the upper and lower limits evenly
+    using the domain range specified by n""" 
+    h = (b - a) / n 
+    """generates 200 points on the grid by generating a evenly spaced numbers using the domain
+        the range specified by n""" 
+    x = np.linspace(-n,n,200)
+    y = f(x)
+    
+    #plot functions to create a plot
+    plt.figure()
+    plt.plot(x,y)
+    plt.grid(True)
+    """pulls a random point from the set to generate a plot and calculate the
+    first and second derivatives"""
+    xn = x[random.randint(0,len(x))]
+    yn = f(xn)
+    
+    print '\txi\t\t\t\t{0}\t\t{1}'.format("x'", 'x"')
+    for i in range(int(n)):
+        #first derivative using forward difference
+        xi = xn - (f(xn)/((f(xn+h)-f(xn))/h))
+        yi = f(xi)
+        plt.plot(xn, yn, 'bo')
+        plt.plot(xi, yi, 'ro')
+        plt.plot([xi, xn], [yi, yn])        
+        #second derivative using forward difference
+        xii = (f(xn+2*h)-(2*f(xn+h)) + f(xn))/h**2
+        yii = f(xii)
+        print 'x{0} -> \t{1}\t\t{2}\t{3}'.format(i,xn, xi, xii) 
+        #xn += h
+        xn += h
+        yn = f(xn) 
+    plt.show()
+
+def solveBySpectralMethod(K, f):
+    
+    """Step 1
+    w -> eigenvalues of K
+    v -> eigenvectors of K"""
+    w,v = np.linalg.eig(K)
+    
+    #Step 2
+    #check orthogonality of vectors from v
+    print "Dot product of column 0 and column 1: ", np.dot(v[:,0], v[:,1])
+    print "Dot product of column 1 and column 2: ", np.dot(v[:,1], v[:,2])
+    print "Dot product of column 0 and column 2: ", np.dot(v[:,0], v[:,2])
+    
+    #Step 2b
+    print "Inner product of column 0 and column 1: ", innerproduct(v[:,0], v[:,1])
+    print "Inner product of column 1 and column 2: ", innerproduct(v[:,1], v[:,2])
+    print "Inner product of column 0 and column 2: ", innerproduct(v[:,0], v[:,2])
+    
+    #Step 3
+    print 'Checking orthogonality of eigenvectors...\n'
+    
+    
+    
+def innerproduct(vector1, vector2):
+    #Step 2a
+    return sum(vector1 * vector2)
+    
+       
+
+def spectralSolutionofFD():
+    nE1 = 4.0
+    
+    domainX = [0.0, 1.0]
+    essentialBCAt0 = 0.0
+    essentialBCAt1 = 0.0
+    hElement = (domainX[1] - domainX[0])/nE1
+    i = 0
+    exampleXCoord = list()
+    while i <= 1:
+        exampleXCoord.append(i)
+        i += hElement
+        
+    
+        
+    nNodes = nE1 - 1
+    fdEqnMaskI = [-2, 1]
+    fdEqnMaskJ = [1, -2, 1]
+    fdnEqnMaskN = [ 1, -2]
+    
+    fdMat = np.zeros([nNodes, nNodes])
+    fdMat[0, 0:2] = fdEqnMaskI
+    fdMat[1, 0:] = fdEqnMaskJ
+    fdMat[2, 1:] = fdnEqnMaskN
+    
+    rhVec = -1 * np.ones(nNodes) * hElement**2
+    
+    uAtX = spectralSolutionofFD(fdMat, rhVec)
+    
+    
+
+if __name__ == '__main__':
+    a,b = 0.0,1.0#upper and lower limits
+    n = 10.0 #intervals in domain
+    problem_1a = lambda x: 3*x**3 + 2*x**2 + x + 1
+    bvp(a,b,n, problem_1a)
+    
+    problem_1b = lambda x: ((np.pi/2)**2)*np.cos((np.pi/2)*x)
+    bvp(a,b,n, problem_1b)
+

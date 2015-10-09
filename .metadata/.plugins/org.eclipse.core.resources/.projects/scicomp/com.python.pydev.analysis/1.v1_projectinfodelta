@@ -1,0 +1,8 @@
+INSTUPfinite_diff
+/home/neighdough/Dropbox/Classes/computational_science/dev/scicomp/finite_diff.py
+INFOS:&&2|1|2|0&&2|3|2|0&&2|4|2|0&&2|5|2|0
+innerproduct=4
+spectralSolutionofFD=5
+solveBySpectralMethod=3
+bvp=1
+finite_diff=2

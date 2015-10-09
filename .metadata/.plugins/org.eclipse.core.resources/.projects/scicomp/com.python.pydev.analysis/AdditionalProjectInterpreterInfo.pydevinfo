@@ -1,0 +1,19 @@
+-- VERSION_4
+-- START DISKCACHE_2
+/home/neighdough/Dropbox/Classes/computational_science/dev/.metadata/.plugins/org.eclipse.core.resources/.projects/scicomp/com.python.pydev.analysis/v2_indexcache
+finite_diff|1443478474000000000|/home/neighdough/Dropbox/Classes/computational_science/dev/scicomp/finite_diff.py
+-- END DISKCACHE
+-- START DICTIONARY
+1
+1=finite_diff
+-- END DICTIONARY
+-- START TREE 1
+4
+bvp|1|bvp!10@
+inn|1|innerproduct!10@
+sol|1|solveBySpectralMethod!10@
+spe|1|spectralSolutionofFD!10@
+-- END TREE
+-- START TREE 2
+0
+-- END TREE
